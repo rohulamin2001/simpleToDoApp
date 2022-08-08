@@ -8,6 +8,8 @@
 
 const inputField = document.querySelector("#firstname")
 const submitBtn = document.querySelector("input[type='submit']")
+let count=0;
+
 submitBtn.addEventListener("click", function (e) {
 
     e.preventDefault();
@@ -17,7 +19,7 @@ submitBtn.addEventListener("click", function (e) {
     liElement.li.appendChild(liElement.span)
 
     document.querySelector("ul").appendChild(liElement.li)
-
+    
 
     // if complete then add complet class 
     liElement.li.addEventListener("click", function () {
@@ -28,8 +30,7 @@ submitBtn.addEventListener("click", function (e) {
     liElement.span.addEventListener("click", function (e) {
         e.target.parentNode.remove();
     })
-
-
+    
 });
 
 
@@ -38,17 +39,19 @@ submitBtn.addEventListener("click", function (e) {
 
 
 function createLiElement(value) {
+    count++;
+    if(value){
+        let li = document.createElement("li");
+        
+        let span = document.createElement("span")
+        
+        span.innerHTML = "X";
+        
+        span.classList.add("crossicon");
+        
+        li.innerHTML = `${count}. ${value}`;
 
-if(value){
-    let li = document.createElement("li");
-
-    let span = document.createElement("span")
-
-    span.innerHTML = "X";
-
-    span.classList.add("crossicon");
-
-    li.innerHTML = `${value}`;
+        inputField.value = "";
 
     return {
         li,
@@ -56,7 +59,8 @@ if(value){
     };
 }else{
     let li = document.createElement("li");
-    li.innerHTML = "Empty";
+    li.innerHTML = count + ". Empty";
+    
     let span = document.createElement("span")
 
     span.innerHTML = "X";
